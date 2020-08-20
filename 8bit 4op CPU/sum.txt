@@ -1,0 +1,86 @@
+A = 0 ;First operand. Stores the sum in the end
+B = 1 ;Second operand
+C = 2 ;Carry in. Stores carry out in the end
+CT = 3
+T1 = 4
+T2 = 5
+T3 = 6
+T4 = 7
+
+ADD:
+
+NAND CT ;Load A. I use CT as a reliable source of 0.
+NAND A
+STR T4
+NAND T4
+
+NAND B
+STR T1
+NAND A
+STR T2
+
+NAND CT ;Load B
+NAND B
+STR T4
+NAND T4
+
+NAND T1
+NAND T2
+STR T2
+NAND C
+STR T3
+NAND T2
+STR T2
+
+NAND CT ;Load C
+NAND C
+STR T4
+NAND T4
+
+NAND T3
+NAND T2
+STR T2 ;Single bit sum waiting to be stored
+
+NAND CT ;Create bit mask on last bit of A
+STR T4
+NAND T4
+NAND A
+
+STR A
+
+NAND CT ;Load T2
+NAND T2
+STR T4
+NAND T4
+
+NAND A ;Combine first operand and single bit sum through mask
+STR T4
+NAND T4
+
+SHR ;Shift first operand right by one place
+STR A ;Stored relevant bits of first operand and sum. There are no calculations to be done on the LSB of the operand anymore, so I utilize it to store the LSB of the sum and save up an entire word of memory.
+
+NAND CT ;Load T1
+NAND T1
+STR T4
+NAND T4
+
+NAND T3
+STR C ;Stored carry
+
+NAND CT ;Load B
+NAND B
+STR T4
+NAND T4
+
+SHR ;Shift second operand right by one place
+STR B
+
+NAND CT
+SHR
+STR CT
+JZ ADD ;Continue loop if counter hasn't gone full circle yet
+
+STR T4
+NAND T4
+JZ HALT

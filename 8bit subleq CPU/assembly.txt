@@ -1,0 +1,17 @@
+.data
+A = 0
+B = 1
+S = 2
+
+R = 12
+NO = 13
+O = 14
+Z = 15
+
+HALT = 255
+
+
+.code
+MOV A S
+ADD S B
+HLT

@@ -1,0 +1,74 @@
+ADD a b
+b z
+z a
+z z
+
+SUB a b
+b a
+
+MOV a b
+b b
+a z
+z b
+z z
+
+NOT a
+no a
+a a
+
+BEQ a d
+a z 4
+z z 8
+z z
+z a d
+
+BLEQ a d
+z a d
+
+BGT a d
+z a 4
+z z d
+
+NOP
+z z
+
+HLT
+z z halt
+
+CLR a
+a a
+
+JMP d
+z z d
+
+INC a
+no a
+
+SHL a
+a z
+z a
+z z
+
+DEC a
+no z
+z a
+z z
+
+FDEC a
+o a
+
+NEG a
+a z
+z r
+a a
+r a
+r r
+z z
+
+ABS a
+a z 8
+z r
+a a
+r a
+r r
+z z
